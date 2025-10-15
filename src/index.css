@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-h1 text-black font-sans;
+  }
+
+  h1 span {
+    @apply text-h1 text-grey-500 font-sans;
+  }
+  
+  h2 {
+    @apply text-h2 text-black font-sans;
+  }
+
+  h2 span {
+    @apply text-h2 text-grey-500 font-sans;
+  }
+
+  p {
+    @apply text-text text-grey-600 font-sans;
+  }
+
+  small {
+    @apply text-date font-sans;
+  }
+
+  input,
+  textarea,
+  select {
+    @apply font-sans text-grey-500 text-text bg-white border border-grey-300 rounded-lg px-4 py-2 shadow-xs;
+  }
+}
