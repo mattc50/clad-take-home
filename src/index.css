@@ -30,6 +30,10 @@
   input,
   textarea,
   select {
-    @apply font-sans text-grey-500 text-text bg-white border border-grey-300 rounded-lg px-4 py-2 shadow-xs;
+    @apply font-sans text-grey-500 text-input bg-white border border-grey-300 rounded-lg px-4 py-2 shadow-xs;
+  }
+
+  button {
+    @apply font-sans text-white text-button bg-grey-600 rounded-lg flex items-center gap-2 px-4 py-2.5 shadow-xs;
   }
 }
