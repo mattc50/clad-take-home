@@ -1,5 +1,8 @@
 # To-Do App
 
+## Screenshot of submission
+![Submission](/src/assets/Screenshot%202025-10-15%20at%204.25.16 PM.png)
+
 ## Requirements
 
 ### Functional requirements
