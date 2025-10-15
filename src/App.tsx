@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import NewTodo from "./components/NewTodo";
-import OutstandingTodos from "./components/OutstandingTodos";
-import { saveTodos } from "./utils/saveTodos";
+import TodosList from "./components/TodosList";
 
 export type TodoProps = {
   id: number,
   complete: boolean,
   name: string,
-  date: Date,
+  date: string,
   description?: string
 }
 
-export function getTodos(): TodoProps[] {
+export const getTodos = (): TodoProps[] => {
   try {
     const data = localStorage.getItem("todos");
     return data ? (JSON.parse(data) as TodoProps[]) : [];
@@ -29,13 +28,27 @@ function App() {
   }, [])
 
   return (
-    <div className="flex h-screen justify-center">
-      <div className="w-1/2 h-1/2 flex flex-col justify-center font-medium text-xl">
-        <div className="total-todos-header">
-          <h1>Todos <span>{todos.length}</span></h1>
+    <div className="flex justify-center">
+      <div className="w-[600px] flex flex-col gap-8 py-16">
+        <div className="flex flex-col gap-2">
+          <h1>To Do <span>{todos.length - todos.filter(todo => todo.complete).length}</span></h1>
+          <NewTodo todos={todos} />
         </div>
-        <NewTodo todos={todos} />
-        <OutstandingTodos outstanding={todos} setTodos={setTodos} />
+        <TodosList
+          list={todos.filter(todo => !todo.complete && new Date(todo.date) < new Date(Date.now()))}
+          title="Overdue"
+          setTodos={setTodos}
+        />
+        <TodosList
+          list={todos.filter(todo => !todo.complete && new Date(todo.date) >= new Date(Date.now()))}
+          title="Outstanding"
+          setTodos={setTodos}
+        />
+        <TodosList
+          list={todos.filter(todo => todo.complete)}
+          title="Complete"
+          setTodos={setTodos}
+        />
       </div>
     </div>
   );

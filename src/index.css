@@ -8,7 +8,7 @@
   }
 
   h1 span {
-    @apply text-h1 text-grey-500 font-sans;
+    @apply text-h1 text-grey-500 font-normal font-sans;
   }
   
   h2 {
@@ -16,15 +16,19 @@
   }
 
   h2 span {
-    @apply text-h2 text-grey-500 font-sans;
+    @apply text-h2 text-grey-500 font-normal font-sans;
   }
 
   p {
-    @apply text-text text-grey-600 font-sans;
+    @apply text-supporting text-grey-600 font-sans;
+  }
+
+  .task-name {
+    @apply text-text text-grey-700;
   }
 
   small {
-    @apply text-date font-sans;
+    @apply font-sans;
   }
 
   input,
@@ -35,5 +39,25 @@
 
   button {
     @apply font-sans text-white text-button bg-grey-600 rounded-lg flex items-center gap-2 px-4 py-2.5 shadow-xs;
+  }
+
+  .todo {
+    @apply text-date text-grey-500;
+  }
+
+  .overdue {
+    @apply text-date text-error-500;
+  }
+}
+
+@layer utilities {
+  .grey-calendar-picker {
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(1)
+        brightness(40%)
+        sepia(30%)
+        saturate(200%)
+        hue-rotate(190deg)
+    }
   }
 }

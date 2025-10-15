@@ -30,12 +30,21 @@ const NewTodo = ({ todos }: NewTodoProps) => {
   const handleSubmit = () => {
     const { name, date, description } = formData;
     const sanitizedName = name ?? "Task Name";
-    const sanitizedDate = date ? new Date(date) : new Date(Date.now());
+    const [year, month, day] = date
+      ? date.split("-").map(Number)
+      : (() => {
+        const now = new Date(Date.now());
+        return [now.getFullYear(), now.getMonth() + 1, now.getDate()];
+      })();
+
+    const sanitizedDate = new Date(year, month - 1, day, 23, 59, 0, 0); // local 23:59
+
+    const sanitizedDateString = sanitizedDate.toISOString().split("T")[0];
     const todo = {
       id: todos.length,
       complete: false,
       name: sanitizedName,
-      date: sanitizedDate,
+      date: sanitizedDateString,
       description: description
     }
     todos.push(todo);
@@ -45,10 +54,10 @@ const NewTodo = ({ todos }: NewTodoProps) => {
   return (
     <div >
       <form className="flex items-start gap-2" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-2">
-          <div className="flex gap-2">
+        <div className="flex flex-col gap-2 grow">
+          <div className="flex grow gap-2">
             <input
-              className="w-[352px]"
+              className="grow"
               required
               id="name"
               placeholder="Task Name*"
@@ -57,7 +66,7 @@ const NewTodo = ({ todos }: NewTodoProps) => {
               onChange={handleChange}
             />
             <input
-              className="w-[144px]"
+              className="grey-calendar-picker"
               type="date"
               name="date"
               id="date"
@@ -66,6 +75,7 @@ const NewTodo = ({ todos }: NewTodoProps) => {
             />
           </div>
           <textarea
+            className="resize-none"
             name="description"
             placeholder="Description (optional)"
             id="description"
@@ -76,7 +86,7 @@ const NewTodo = ({ todos }: NewTodoProps) => {
         </div>
         <button type="submit">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 4.16666V15.8333M4.16666 9.99999H15.8333" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M10 4.16666V15.8333M4.16666 9.99999H15.8333" stroke="white" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           Add
         </button>
